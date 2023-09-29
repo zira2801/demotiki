@@ -50,7 +50,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_margin="20dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="10dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="65dp"
                     android:layout_height="65dp"
@@ -64,6 +66,35 @@
                     android:textStyle="bold"
                     android:layout_marginStart="5dp"/>
             </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/chonhinhanh"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/img_add"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/baseline_add_photo_alternate_24_2"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hình ảnh"
+                    android:textColor="@color/black"
+                    android:layout_alignStart="@+id/img_add"
+                    android:layout_marginStart="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18dp"/>
+            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,29 +135,69 @@
                 android:textColor="@color/black"
                 android:layout_marginStart="20dp"/>
             <EditText
+                android:id="@+id/edt_thuonghieu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"/>
+                android:layout_marginEnd="18dp"
+                android:background="@drawable/background_dangbai"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Xuất xứ"
                 android:textColor="@color/black"
                 android:layout_marginStart="20dp"/>
+            <EditText
+                android:layout_marginBottom="10dp"
+                android:id="@+id/edt_xuatxu"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@drawable/background_dangbai"
+                android:paddingStart="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sản phẩm có được bảo hành không"
                 android:textColor="@color/black"
                 android:layout_marginStart="20dp"/>
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Có"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Không"
+                    android:layout_marginStart="15dp"/>
+            </RadioGroup>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thời gian bảo hành"
                 android:textColor="@color/black"
                 android:layout_marginStart="20dp"/>
+            <EditText
+                android:layout_marginBottom="10dp"
+                android:id="@+id/edt_thoigianbaohanh"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@drawable/background_dangbai"
+                android:paddingStart="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -149,7 +220,8 @@
                 android:scrollbarStyle="insideInset"
                 android:scrollHorizontally="false"
                 android:layout_margin="10dp"
-                android:background="@drawable/background_edit_diachi"/>
+                android:background="@drawable/background_edit_diachi"
+                />
         </LinearLayout>
     </ScrollView>
 
