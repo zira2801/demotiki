@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/khampha"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Trang chủ"/>
+    <item android:id="@+id/congdong"
+        android:icon="@drawable/baseline_format_list_bulleted_24"
+        android:title="Danh mục sản phẩm"/>
+    <item android:id="@+id/chat"
+        android:icon="@drawable/baseline_chat_24"
+        android:title="Chat"/>
+    <item android:id="@+id/canhan"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Cá nhân"/>
+</menu>

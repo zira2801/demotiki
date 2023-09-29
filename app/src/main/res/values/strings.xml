@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">demotiki</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_web_client_id" translatable="false">605387888351-47n4uon127876lus2634dsbmm3uhcj86.apps.googleusercontent.com</string>
+
+    <string name="facebook_app_id">329899432738901</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
+    <string name="select">Select Item</string>
+</resources>

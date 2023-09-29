@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ThongTinTaiKhoan.ThongTinTaiKhoanActivity"
+    android:orientation="vertical">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="50dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cập nhật thông tin"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:gravity="center|center_horizontal"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ảnh đại diện"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/edt_avatar"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:src="@drawable/baseline_account_circle_24"
+                android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/btn_editavatar"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Chọn ảnh"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#00adf1"
+                />
+            <TextView
+                android:layout_marginTop="15dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ảnh bìa"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                />
+
+            <ImageView
+                android:background="#AEA8A8"
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/baseline_add_photo_alternate_24"
+                android:layout_margin="20dp"/>
+
+            <Button
+                android:id="@+id/btn_editanhbia"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Chọn ảnh bìa"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#00adf1"
+                />
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên tài khoản"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+
+            <EditText
+                android:id="@+id/edit_tenND"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="#636262"
+                android:background="@drawable/background_edit"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Số điện thoại"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+
+            <EditText
+                android:id="@+id/edit_SDTND"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/background_edit"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giới tính"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+
+            <RadioGroup
+                android:id="@+id/rad_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp">
+                <RadioButton
+                    android:id="@+id/rad_nam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nam"
+                    android:textColor="@color/black"/>
+                <RadioButton
+                    android:id="@+id/rad_nu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nữ"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"/>
+                <RadioButton
+                    android:id="@+id/rad_khac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Khác"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ngày sinh"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/edit_ngaysinh"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_edit"/>
+                <ImageView
+                    android:id="@+id/img_calencer"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/baseline_calendar_month_24"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="50dp"/>
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quốc tịch"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/chonquoctich"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:ccp_textGravity="LEFT"
+                app:ccp_showFullName="true"
+                app:ccp_showPhoneCode="false"
+                app:ccp_defaultLanguage="VIETNAMESE"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_diachi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:lines="6"
+                android:textColor="@color/black"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="insideInset"
+                android:scrollHorizontally="false"
+                android:layout_margin="10dp"
+                android:background="@drawable/background_edit_diachi"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp">
+                <Button
+                    android:id="@+id/btn_luu_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:backgroundTint="#00adf1"
+                    android:text="Lưu"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_thoat_edt"
+                    android:transitionName="transition_next_btn"
+                    tools:ignore="MissingConstraints" />
+
+                <Button
+                    android:id="@+id/btn_thoat_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="20dp"
+                    android:backgroundTint="#00adf1"
+                    android:text="Thoát"
+                    android:textColor="@color/white"
+                    android:transitionName="transition_next_btn"
+                    app:layout_constraintStart_toEndOf="@id/btn_luu_edit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
