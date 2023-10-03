@@ -22,7 +22,7 @@
         android:layout_marginBottom="10dp"
         android:text="Tạo bài đăng sản phẩm "
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <ImageView
@@ -41,7 +41,7 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/background_dangsp"
             android:orientation="vertical">
 
@@ -91,16 +91,31 @@
                     android:layout_marginTop="10dp"
                     android:textSize="18dp"/>
             </RelativeLayout>
+            <TextView
+                android:id="@+id/totalimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                />
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleview_chonanh"
+                android:scrollbarStyle="outsideInset"
+                android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"/>
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:layout_marginBottom="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thông tin chi tiết"
                 android:textColor="@color/black"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:layout_marginStart="13dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"/>
@@ -125,7 +140,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:textColorLink="#00adf1"/>
+                    android:textColorLink="#00adf1"
+                    tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
