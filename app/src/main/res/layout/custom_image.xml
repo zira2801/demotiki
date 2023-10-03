@@ -24,4 +24,12 @@
         android:src="@drawable/baseline_remove_circle_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBaseline_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/zoom_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_zoom_out_map_24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBaseline_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -91,16 +91,34 @@
                     android:layout_marginTop="10dp"
                     android:textSize="18dp"/>
             </RelativeLayout>
-            <TextView
-                android:id="@+id/totalimage"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:gravity="center"
                 android:layout_marginBottom="5dp"
-                />
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/totalimage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="10dp"
+                    android:text="so"
+                    />
+                <Button
+                    android:id="@+id/btn_removeall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#00adf1"
+                    android:text="Xóa tất cả"
+                    android:textSize="15sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"/>
+            </RelativeLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleview_chonanh"
                 android:scrollbarStyle="outsideInset"
