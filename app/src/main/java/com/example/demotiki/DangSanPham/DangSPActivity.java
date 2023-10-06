@@ -178,7 +178,7 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
                 @SuppressLint("NotifyDataSetChanged")
                 @Override
                 public void onSuccess(Void unused) {
-                    Toast.makeText(DangSPActivity.this,"Bạn chưa chọn ảnh !",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DangSPActivity.this,"Đăng sản phẩm thành công",Toast.LENGTH_SHORT).show();
                     uris.clear();
                     ed_thuonghieu.setText("");
                     ed_xuatxu.setText("");
@@ -190,6 +190,9 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
                     removeall.setVisibility(View.GONE);
                 }
             });
+        }
+        else{
+            Toast.makeText(DangSPActivity.this,"Bạn phải nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
         }
 
     }
