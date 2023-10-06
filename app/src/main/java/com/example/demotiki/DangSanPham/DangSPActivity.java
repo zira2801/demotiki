@@ -15,21 +15,35 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.demotiki.AnotherClass.SanPham;
 import com.example.demotiki.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
-
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.CountImage,RecycleAdapter.itemClickListener{
@@ -42,12 +56,15 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
     TextView totalanh;
     RecycleAdapter imageadapter;
     ArrayList<Uri> uris = new ArrayList<>();
-
+    ArrayList<String> danhSachAnhSP = new ArrayList<>();
     private static final int Read_Permission = 101;
     private static final int PICK_IMAGE = 1;
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapter;
-    Button removeall;
+    Button removeall,dang;
+    EditText ed_thuonghieu,ed_xuatxu,ed_baohanh;
+    TextInputEditText ed_motasp;
+    RadioGroup rad_baohanh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,8 +117,82 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
                 removeall.setVisibility(View.GONE);
             }
         });
+
+        //Sự kiện đăng sản phẩm
+        dang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UploadIMG();
+            }
+        });
     }
 
+    private void UploadIMG(){
+        for(int i = 0; i<uris.size();i++){
+            Uri in = uris.get(i);
+            if(in != null){
+                StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("AnhItemSanPham");
+                final StorageReference imageName = ImageFolder.child("Image SP "+i+": "+in.getLastPathSegment());
+                imageName.putFile(in).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                danhSachAnhSP.add(String.valueOf(uri));
+                                if(danhSachAnhSP.size() == uris.size()){
+                                    DangSP(danhSachAnhSP);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    }
+
+    private void DangSP(ArrayList<String> danhSachAnhSP){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            return;
+        }
+        String thuonghieu = ed_thuonghieu.getText().toString();
+        String tgbaohanh = ed_baohanh.getText().toString();
+        String xuatxu = ed_xuatxu.getText().toString();
+        int selectBH = rad_baohanh.getCheckedRadioButtonId();
+        String check = "";
+        if (selectBH != -1) {
+            RadioButton selectedRadioButton = findViewById(selectBH);
+            // Lấy thông tin từ RadioButton đã chọn
+            check = selectedRadioButton.getText().toString();
+        }
+        String danhmucsp = autoCompleteTextView.getText().toString();
+        String mota = ed_motasp.getText().toString();
+        SanPham sp = new SanPham("",user.getUid(),danhmucsp,thuonghieu,tgbaohanh,xuatxu,check,mota,danhSachAnhSP,"");
+        if(!TextUtils.isEmpty(thuonghieu) && !TextUtils.isEmpty(xuatxu) && !TextUtils.isEmpty(tgbaohanh) && !TextUtils.isEmpty(mota) && danhSachAnhSP != null && !check.equals("")){
+
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+            String id = dbRef.child("SanPham").push().getKey();
+            sp.setItemId(id);
+            dbRef.child("SanPham").child(id).setValue(sp).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(DangSPActivity.this,"Bạn chưa chọn ảnh !",Toast.LENGTH_SHORT).show();
+                    uris.clear();
+                    ed_thuonghieu.setText("");
+                    ed_xuatxu.setText("");
+                    ed_baohanh.setText("");
+                    ed_motasp.setText("");
+                    rad_baohanh.clearCheck();
+                    imageadapter.notifyDataSetChanged();
+                    totalanh.setVisibility(View.GONE);
+                    removeall.setVisibility(View.GONE);
+                }
+            });
+        }
+
+    }
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -151,6 +242,12 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
         recyclerView = (RecyclerView) findViewById(R.id.recycleview_chonanh);
         chonanh = findViewById(R.id.chonhinhanh);
         removeall = (Button) findViewById(R.id.btn_removeall);
+        dang = (Button) findViewById(R.id.btn_dangsp);
+        ed_thuonghieu = (EditText) findViewById(R.id.edt_thuonghieu);
+        ed_xuatxu = (EditText) findViewById(R.id.edt_xuatxu);
+        ed_baohanh = (EditText) findViewById(R.id.edt_thoigianbaohanh);
+        rad_baohanh = (RadioGroup) findViewById(R.id.ra_baohanh);
+        ed_motasp = (TextInputEditText) findViewById(R.id.edt_baidang);
     }
 
     @SuppressLint("SetTextI18n")

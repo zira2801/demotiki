@@ -113,7 +113,8 @@
                 android:textColor="@color/black"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/background_edit"/>
+                android:background="@drawable/background_edit"
+                android:inputType="phone"/>
 
             <TextView
                 android:layout_marginTop="20dp"
@@ -173,7 +174,8 @@
                     android:textColor="@color/black"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/background_edit"/>
+                    android:background="@drawable/background_edit"
+                    android:inputType="date"/>
                 <ImageView
                     android:id="@+id/img_calencer"
                     android:layout_width="24dp"

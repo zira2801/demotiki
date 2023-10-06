@@ -102,13 +102,15 @@
                     android:id="@+id/totalimage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:text="so"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
                 <Button
                     android:id="@+id/btn_removeall"
                     android:layout_width="wrap_content"
@@ -201,6 +203,7 @@
                 android:textColor="@color/black"
                 android:layout_marginStart="20dp"/>
             <RadioGroup
+                android:id="@+id/ra_baohanh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -255,6 +258,17 @@
                 android:scrollHorizontally="false"
                 android:layout_margin="10dp"
                 android:background="@drawable/background_edit_diachi"
+                />
+            <Button
+                android:id="@+id/btn_dangsp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Đăng sản phẩm"
+                android:backgroundTint="#00adf1"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="30dp"
                 />
         </LinearLayout>
     </ScrollView>
