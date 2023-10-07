@@ -148,6 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 usersRef.child("QuocTich").setValue("");
                                                 usersRef.child("profile").setValue(user.getPhotoUrl());
                                                 usersRef.child("AnhBia").setValue("");
+                                                usersRef.child("StatusTK").setValue("Khách hàng");
                                             }
                                         }
                                         @Override
@@ -248,7 +249,10 @@ public class LoginActivity extends AppCompatActivity {
                                         map.put("DiaChi", "");
                                         map.put("QuocTich", "");
                                         map.put("AnhBia", "");
+                                        map.put("StatusTK","Khách hàng");
                                         usersRef.setValue(map);
+                                    }
+                                    else {
                                     }
                                 }
                                 @Override
@@ -323,6 +327,7 @@ public class LoginActivity extends AppCompatActivity {
                                         map.put("DiaChi", "");
                                         map.put("QuocTich", "");
                                         map.put("AnhBia", "");
+                                        map.put("StatusTK","Khách hàng");
                                         usersRef.setValue(map);
                                     }
                                 }

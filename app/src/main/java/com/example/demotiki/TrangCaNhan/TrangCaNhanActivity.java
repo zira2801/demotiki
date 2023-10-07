@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.demotiki.DangKyNhaBan.DangKyNhaBanActivity;
 import com.example.demotiki.DangSanPham.DangSPActivity;
 import com.example.demotiki.FragmentCaNhan.ViewPagerAdapter;
 import com.example.demotiki.R;
@@ -40,7 +41,7 @@ public class TrangCaNhanActivity extends AppCompatActivity {
     CircleImageView ava;
     ImageView btn_back;
     TextView tentk;
-    LinearLayout suatk;
+    LinearLayout suatk,dangkynhaban;
     private TabLayout mTablayout;
     private ViewPager2 mViewPage;
     private ViewPagerAdapter mViewPagerAdapter;
@@ -59,7 +60,9 @@ public class TrangCaNhanActivity extends AppCompatActivity {
         mTablayout = findViewById(R.id.tab_layout);
         mViewPage = findViewById(R.id.view_pager);
         fab = (FloatingActionButton) findViewById(R.id.fab_bn);
-
+        dangkynhaban = (LinearLayout) findViewById(R.id.dangkynhaban);
+        suatk.setVisibility(View.GONE);
+        dangkynhaban.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +88,13 @@ public class TrangCaNhanActivity extends AppCompatActivity {
                 startActivity(new Intent(TrangCaNhanActivity.this, ThongTinTaiKhoanActivity.class));
             }
         });
+
+        dangkynhaban.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TrangCaNhanActivity.this, DangKyNhaBanActivity.class));
+            }
+        });
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +118,13 @@ public class TrangCaNhanActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     String name = (String) snapshot.child("name").getValue();
                     String Anhbia = snapshot.child("AnhBia").getValue().toString();
+                    String trangthaitk = (String) snapshot.child("StatusTK").getValue().toString();
+                    if(trangthaitk.equals("Khách hàng")){
+                        dangkynhaban.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        suatk.setVisibility(View.VISIBLE);
+                    }
                     if (name == null) {
                         tentk.setText("Tên tài khoản");
                     } else {

@@ -152,7 +152,6 @@
                 android:layout_margin="16dp"
                 android:hint="@string/select"
                 app:boxStrokeColor="#00adf1"
-
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
                 <AutoCompleteTextView

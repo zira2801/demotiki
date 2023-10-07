@@ -122,7 +122,24 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
         dang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UploadIMG();
+                String thuonghieu = ed_thuonghieu.getText().toString();
+                String tgbaohanh = ed_baohanh.getText().toString();
+                String xuatxu = ed_xuatxu.getText().toString();
+                int selectBH = rad_baohanh.getCheckedRadioButtonId();
+                String check = "";
+                if (selectBH != -1) {
+                    RadioButton selectedRadioButton = findViewById(selectBH);
+                    // Lấy thông tin từ RadioButton đã chọn
+                    check = selectedRadioButton.getText().toString();
+                }
+                String danhmucsp = autoCompleteTextView.getText().toString();
+                String mota = ed_motasp.getText().toString();
+                if(!TextUtils.isEmpty(thuonghieu) && !TextUtils.isEmpty(xuatxu) && !TextUtils.isEmpty(tgbaohanh) && !TextUtils.isEmpty(mota) && danhSachAnhSP != null && !check.equals("")) {
+                    UploadIMG();
+                }
+                else{
+                    Toast.makeText(DangSPActivity.this,"Bạn phải nhập đầy đủ thông tin !",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

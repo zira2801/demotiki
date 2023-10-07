@@ -69,8 +69,29 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
+                    android:id="@+id/dangkynhaban"
+                    android:layout_width="240dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/background_dkdn"
+                    android:gravity="center"
+                    app:layout_constraintStart_toEndOf="@+id/anh_avatar"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewtt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="10dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đăng ký trở thành Nhà bán"
+                        android:textColor="#00adf1"
+                        android:textSize="18dp" />
+                </LinearLayout>
+                <LinearLayout
                     android:id="@+id/suatt"
-                    android:layout_width="150dp"
+                    android:layout_width="200dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
@@ -83,7 +104,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sửa thông tin"
+                        android:text="Sửa thông tin Nhà bán"
                         android:textColor="#F14914"
                         android:textSize="18dp" />
                 </LinearLayout>
