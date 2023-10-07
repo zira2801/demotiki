@@ -40,7 +40,7 @@ public class TrangCaNhanActivity extends AppCompatActivity {
     ImageView anhbia;
     CircleImageView ava;
     ImageView btn_back;
-    TextView tentk;
+    TextView tentk,trangthaitaikhoan;
     LinearLayout suatk,dangkynhaban;
     private TabLayout mTablayout;
     private ViewPager2 mViewPage;
@@ -61,6 +61,7 @@ public class TrangCaNhanActivity extends AppCompatActivity {
         mViewPage = findViewById(R.id.view_pager);
         fab = (FloatingActionButton) findViewById(R.id.fab_bn);
         dangkynhaban = (LinearLayout) findViewById(R.id.dangkynhaban);
+        trangthaitaikhoan = (TextView) findViewById(R.id.trangthaitk);
         suatk.setVisibility(View.GONE);
         dangkynhaban.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -119,11 +120,13 @@ public class TrangCaNhanActivity extends AppCompatActivity {
                     String name = (String) snapshot.child("name").getValue();
                     String Anhbia = snapshot.child("AnhBia").getValue().toString();
                     String trangthaitk = (String) snapshot.child("StatusTK").getValue().toString();
+                    trangthaitaikhoan.setText(trangthaitk);
                     if(trangthaitk.equals("Khách hàng")){
                         dangkynhaban.setVisibility(View.VISIBLE);
                     }
                     else{
                         suatk.setVisibility(View.VISIBLE);
+                        dangkynhaban.setVisibility(View.GONE);
                     }
                     if (name == null) {
                         tentk.setText("Tên tài khoản");
@@ -134,7 +137,7 @@ public class TrangCaNhanActivity extends AppCompatActivity {
                         String photoUrl = snapshot.child("profile").getValue().toString();
                         Glide.with(getApplicationContext()).load(photoUrl).error(R.drawable.baseline_account_circle_24).into(ava);
                     }
-                    Glide.with(getApplicationContext()).load(Anhbia).error(R.drawable.baseline_add_photo_alternate_24).into(anhbia);
+                    Glide.with(getApplicationContext()).load(Anhbia).error("").into(anhbia);
 
                 }
             }

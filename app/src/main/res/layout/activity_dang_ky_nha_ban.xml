@@ -17,6 +17,7 @@
         tools:ignore="UselessLeaf"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/close_dknb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_arrow_back_ios_new_24"
@@ -129,6 +130,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:background="@color/white"
+            android:layout_marginBottom="10dp"
             />
 
         <LinearLayout
@@ -206,6 +208,7 @@
             android:gravity="center"
             android:layout_marginStart="10dp">
             <CheckBox
+                android:id="@+id/check_oke"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
@@ -225,7 +228,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="100dp"/>
     </LinearLayout>
 </ScrollView>
 </LinearLayout>

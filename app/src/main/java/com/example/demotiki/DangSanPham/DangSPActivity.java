@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,6 +33,7 @@ import android.widget.Toast;
 
 
 import com.example.demotiki.AnotherClass.SanPham;
+import com.example.demotiki.DangKyNhaBan.DangKyNhaBanActivity;
 import com.example.demotiki.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -287,8 +290,11 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
     @SuppressLint("SetTextI18n")
     @Override
     public void itemClick(int position) {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_zoom);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_zoom,null);
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        AlertDialog dialog = b.setView(view).create();
+        dialog.show();
         TextView textimg = dialog.findViewById(R.id.text_image);
         ImageView img = dialog.findViewById(R.id.image_dialog);
         Button button = dialog.findViewById(R.id.close_dialogimg);
@@ -301,6 +307,5 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
                 dialog.dismiss();
             }
         });
-        dialog.show();
     }
 }
