@@ -64,8 +64,8 @@ public class DangKyNhaBanActivity extends AppCompatActivity {
                 String sodt = ed_sdt.getText().toString();
                 String nganhhang = chonnganhhang.getText().toString();
                 String quocgia = countryCodePicker.getSelectedCountryNameCode();
-
-                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(hoten) && !TextUtils.isEmpty(sodt) && !TextUtils.isEmpty(nganhhang)){
+                boolean checked = checkBox.isChecked();
+                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(hoten) && !TextUtils.isEmpty(sodt) && !TextUtils.isEmpty(nganhhang) && !checked){
                     DangKyNhaBan();
                 }
                 else {
