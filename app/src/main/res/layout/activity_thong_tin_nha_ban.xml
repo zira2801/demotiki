@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ThongTinTaiKhoan.ThongTinNhaBanActivity"
+    android:orientation="vertical">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="50dp">
+
+            <ImageView
+                android:id="@+id/back_ttnhaban"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_back_ios_new_24"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Họ và Tên"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+
+            <EditText
+                android:id="@+id/edit_hovaten"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColorHint="#636262"
+                android:background="@drawable/background_edit"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Số điện thoại"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+
+            <EditText
+                android:id="@+id/edt_SDTND"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/background_edit"
+                android:inputType="phone"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email Nhà bán"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+
+            <EditText
+                android:id="@+id/edt_emaiND"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/background_edit"
+                android:inputType="phone"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ngành hàng"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="@string/select"
+                app:boxStrokeColor="#00adf1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autonganhhang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColorLink="#00adf1"
+                    tools:ignore="LabelFor" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quốc gia"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/quocgianhaban"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                app:ccp_textGravity="LEFT"
+                app:ccp_showFullName="true"
+                app:ccp_showPhoneCode="false"
+                app:ccp_defaultLanguage="VIETNAMESE"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/white"
+                android:layout_marginBottom="10dp"
+                />
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ nhà bán"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/diachi_nhaBan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:lines="6"
+                android:textColor="@color/black"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="insideInset"
+                android:scrollHorizontally="false"
+                android:layout_margin="10dp"
+                android:background="@drawable/background_edit_diachi"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp">
+                <Button
+                    android:id="@+id/btn_capnhat_edt_nhaban"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:backgroundTint="#00adf1"
+                    android:text="Cập nhật"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_yeucauxoa_nhaban"
+                    android:transitionName="transition_next_btn"
+                    tools:ignore="MissingConstraints" />
+
+                <LinearLayout
+                    android:id="@+id/btn_yeucauxoa_nhaban"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/background_ds"
+                    android:gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:text="Thoát"
+                    android:textColor="@color/white"
+                    android:transitionName="transition_next_btn"
+                    app:layout_constraintStart_toEndOf="@id/btn_capnhat_edt_nhaban"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="5dp"
+                    tools:ignore="MissingConstraints" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hủy nhà bán"
+                        android:textSize="20dp"
+                        android:textColor="#EF133F"
+                        />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

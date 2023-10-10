@@ -7,17 +7,27 @@ public class NhaBan {
     private String QuocGia;
     private String SoDT;
     private String NganhHang;
+    private String DiaChi;
 
-    public NhaBan(String userId, String email, String hoten, String quocGia, String soDT, String nganhHang) {
+    public NhaBan(String userId, String email, String hoten, String quocGia, String soDT, String nganhHang,String DiaChiNhaBan) {
         this.userId = userId;
         Email = email;
         Hoten = hoten;
         QuocGia = quocGia;
         SoDT = soDT;
         NganhHang = nganhHang;
+        this.DiaChi = DiaChiNhaBan;
     }
 
     public NhaBan() {
+    }
+
+    public String getDiaChi() {
+        return DiaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        DiaChi = diaChi;
     }
 
     public void setUserId(String userId) {

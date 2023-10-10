@@ -200,7 +200,30 @@
                 android:textColorLink="#00adf1"
                 tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
-
+        <TextView
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ nhà bán"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_diachi_nhaban"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:lines="6"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideInset"
+            android:scrollHorizontally="false"
+            android:layout_margin="10dp"
+            android:background="@drawable/background_edit_diachi"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -222,7 +245,7 @@
         <Button
             android:id="@+id/btn_dangkynhaban"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:text="Đăng ký"
             android:backgroundTint="#00adf1"
             android:layout_marginTop="18dp"

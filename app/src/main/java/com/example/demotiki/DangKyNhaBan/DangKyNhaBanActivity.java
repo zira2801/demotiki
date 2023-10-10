@@ -23,6 +23,7 @@ import com.example.demotiki.AnotherClass.SanPham;
 import com.example.demotiki.DangSanPham.DangSPActivity;
 import com.example.demotiki.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +35,7 @@ public class DangKyNhaBanActivity extends AppCompatActivity {
     String[] item = {"Điện thoại","Laptop","Đồ chơi"};
     ImageView back,wa_email,wa_hovaten,wa_sodt,wa_quocgia,wa_nganhhang;
     EditText ed_email,ed_hoten,ed_sdt;
+    TextInputEditText diachi;
     CountryCodePicker countryCodePicker;
     AutoCompleteTextView chonnganhhang;
     CheckBox checkBox;
@@ -216,8 +218,8 @@ public class DangKyNhaBanActivity extends AppCompatActivity {
         String sodt = ed_sdt.getText().toString();
         String nganhhang = chonnganhhang.getText().toString();
         String quocgia = countryCodePicker.getSelectedCountryNameCode();
-
-        NhaBan nb = new NhaBan(""+user.getUid(),email,hoten,quocgia,sodt,nganhhang);
+        String dc = diachi.getText().toString();
+        NhaBan nb = new NhaBan(""+user.getUid(),email,hoten,quocgia,sodt,nganhhang,dc);
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         String id = "NB"+user.getUid();
         nb.setUserId(id);
@@ -247,5 +249,6 @@ public class DangKyNhaBanActivity extends AppCompatActivity {
         chonnganhhang = (AutoCompleteTextView) findViewById(R.id.auto_item_nganhhang);
         dangky = (Button) findViewById(R.id.btn_dangkynhaban);
         checkBox = (CheckBox) findViewById(R.id.check_oke);
+        diachi = (TextInputEditText) findViewById(R.id.edt_diachi_nhaban);
     }
 }

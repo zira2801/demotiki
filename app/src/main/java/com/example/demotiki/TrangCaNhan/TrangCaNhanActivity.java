@@ -24,6 +24,7 @@ import com.example.demotiki.DangKyNhaBan.DangKyNhaBanActivity;
 import com.example.demotiki.DangSanPham.DangSPActivity;
 import com.example.demotiki.FragmentCaNhan.ViewPagerAdapter;
 import com.example.demotiki.R;
+import com.example.demotiki.ThongTinTaiKhoan.ThongTinNhaBanActivity;
 import com.example.demotiki.ThongTinTaiKhoan.ThongTinTaiKhoanActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -135,7 +136,7 @@ public class TrangCaNhanActivity extends AppCompatActivity {
         suatk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(TrangCaNhanActivity.this, ThongTinTaiKhoanActivity.class));
+                startActivity(new Intent(TrangCaNhanActivity.this, ThongTinNhaBanActivity.class));
             }
         });
 

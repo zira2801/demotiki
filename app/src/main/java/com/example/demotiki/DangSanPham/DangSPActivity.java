@@ -68,6 +68,7 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
     EditText ed_thuonghieu,ed_xuatxu,ed_baohanh;
     TextInputEditText ed_motasp;
     RadioGroup rad_baohanh;
+    ImageView close;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +144,14 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
                 else{
                     Toast.makeText(DangSPActivity.this,"Bạn phải nhập đầy đủ thông tin !",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        //Sự kiện đóng đăng sp
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
@@ -271,6 +280,7 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
         ed_baohanh = (EditText) findViewById(R.id.edt_thoigianbaohanh);
         rad_baohanh = (RadioGroup) findViewById(R.id.ra_baohanh);
         ed_motasp = (TextInputEditText) findViewById(R.id.edt_baidang);
+        close = (ImageView) findViewById(R.id.dongdangsp);
     }
 
     @SuppressLint("SetTextI18n")
