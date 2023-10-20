@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import com.google.android.gms.fido.fido2.api.common.GoogleThirdPartyPaymentExtension;
+
 public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("ObsoleteSdkInt")

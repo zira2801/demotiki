@@ -58,4 +58,6 @@ dependencies {
     implementation ("com.hbb20:ccp:2.7.3")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+
+    implementation ("com.makeramen:roundedimageview:2.3.0")
 }

@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "demotiki"
 include(":app")
+include(":myapplication")
