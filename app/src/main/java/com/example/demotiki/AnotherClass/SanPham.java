@@ -5,8 +5,11 @@ import java.util.ArrayList;
 public class SanPham {
     private String itemId;
     private String idUser;
+    private String tensp;
     private String DanhMucSP;
     private String thuongHieu;
+
+    private Double giaban;
     private String thoiGianBaoHanh;
     private String xuatXu;
     private String moTa;
@@ -18,17 +21,36 @@ public class SanPham {
     public SanPham(){
 
     }
-    public SanPham(String id,String iduser,String danhmuc,String thuongHieu, String thoiGianBaoHanh, String xuatXu,String checkbh ,String moTa, ArrayList<String> dsAnh, String danhgia) {
+
+    public SanPham(String itemId, String idUser, String tensp, String danhMucSP, String thuongHieu, Double giaban, String thoiGianBaoHanh, String xuatXu, String moTa, String checkBaoHanh, ArrayList<String> dsAnh, String danhgia) {
+        this.itemId = itemId;
+        this.idUser = idUser;
+        this.tensp = tensp;
+        DanhMucSP = danhMucSP;
         this.thuongHieu = thuongHieu;
+        this.giaban = giaban;
         this.thoiGianBaoHanh = thoiGianBaoHanh;
         this.xuatXu = xuatXu;
         this.moTa = moTa;
+        this.checkBaoHanh = checkBaoHanh;
         this.dsAnh = dsAnh;
         this.danhgia = danhgia;
-        this.checkBaoHanh = checkbh;
-        this.itemId = id;
-        this.DanhMucSP = danhmuc;
-        this.idUser = iduser;
+    }
+
+    public Double getGiaban() {
+        return giaban;
+    }
+
+    public void setGiaban(Double giaban) {
+        this.giaban = giaban;
+    }
+
+    public String getTensp() {
+        return tensp;
+    }
+
+    public void setTensp(String tensp) {
+        this.tensp = tensp;
     }
 
     public String getIdUser() {

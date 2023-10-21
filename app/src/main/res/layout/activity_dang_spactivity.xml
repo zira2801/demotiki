@@ -140,7 +140,22 @@
                 android:layout_marginStart="13dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm"
+                android:textColor="@color/black"
+                android:layout_marginStart="20dp"/>
+            <EditText
+                android:id="@+id/edt_tenSP"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@drawable/background_dangbai"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -189,6 +204,22 @@
             <EditText
                 android:layout_marginBottom="10dp"
                 android:id="@+id/edt_xuatxu"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@drawable/background_dangbai"
+                android:paddingStart="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá sản phẩm"
+                android:textColor="@color/black"
+                android:layout_marginStart="20dp"/>
+            <EditText
+                android:layout_marginBottom="10dp"
+                android:id="@+id/edt_giaSP"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"

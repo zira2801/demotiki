@@ -65,7 +65,7 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapter;
     Button removeall,dang;
-    EditText ed_thuonghieu,ed_xuatxu,ed_baohanh;
+    EditText ed_thuonghieu,ed_xuatxu,ed_baohanh,ed_tensp,ed_giasp;
     TextInputEditText ed_motasp;
     RadioGroup rad_baohanh;
     ImageView close;
@@ -185,6 +185,9 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
         if (user == null) {
             return;
         }
+        String namesp = ed_tensp.getText().toString();
+        String gia = ed_giasp.getText().toString();
+        Double giaSP = Double.parseDouble(gia);
         String thuonghieu = ed_thuonghieu.getText().toString();
         String tgbaohanh = ed_baohanh.getText().toString();
         String xuatxu = ed_xuatxu.getText().toString();
@@ -197,7 +200,7 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
         }
         String danhmucsp = autoCompleteTextView.getText().toString();
         String mota = ed_motasp.getText().toString();
-        SanPham sp = new SanPham("",user.getUid(),danhmucsp,thuonghieu,tgbaohanh,xuatxu,check,mota,danhSachAnhSP,"");
+        SanPham sp = new SanPham("",user.getUid(),namesp,danhmucsp,thuonghieu,giaSP,tgbaohanh,xuatxu,check,mota,danhSachAnhSP,"");
         if(!TextUtils.isEmpty(thuonghieu) && !TextUtils.isEmpty(xuatxu) && !TextUtils.isEmpty(tgbaohanh) && !TextUtils.isEmpty(mota) && danhSachAnhSP != null && !check.equals("")){
 
             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
@@ -281,6 +284,8 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
         rad_baohanh = (RadioGroup) findViewById(R.id.ra_baohanh);
         ed_motasp = (TextInputEditText) findViewById(R.id.edt_baidang);
         close = (ImageView) findViewById(R.id.dongdangsp);
+        ed_tensp = (EditText) findViewById(R.id.edt_tenSP);
+        ed_giasp = (EditText) findViewById(R.id.edt_giaSP);
     }
 
     @SuppressLint("SetTextI18n")

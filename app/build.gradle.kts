@@ -60,4 +60,6 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
 
     implementation ("com.makeramen:roundedimageview:2.3.0")
+
+    implementation ("com.nex3z:notification-badge:1.0.4")
 }

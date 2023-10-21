@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <style name="CustomRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressTint">#BABAB9</item>
+        <item name="android:progressBackgroundTint">#E1BF3E</item>
+    </style>
 </resources>

@@ -86,7 +86,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_margin="18dp"
@@ -94,16 +93,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <me.relex.circleindicator.CircleIndicator3
-                    android:id="@+id/circle_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="110dp"
-                    app:ci_drawable="@drawable/bg_indicator_3"
-                    app:layout_constraintBottom_toBottomOf="@+id/viewPager"
-                    app:layout_constraintEnd_toEndOf="@+id/viewPager"
-                    app:layout_constraintStart_toStartOf="@+id/viewPager"
-                    app:layout_constraintTop_toTopOf="@+id/viewPager" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
                 android:layout_width="wrap_content"
