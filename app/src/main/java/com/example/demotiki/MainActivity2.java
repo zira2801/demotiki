@@ -14,7 +14,7 @@ import android.view.WindowManager;
 
 import com.example.demotiki.Fragment.CaNhanFragment;
 import com.example.demotiki.Fragment.ChatFragment;
-import com.example.demotiki.Fragment.DanhMucSPFragment;
+import com.example.demotiki.Fragment.DanhMucFragment;
 import com.example.demotiki.Fragment.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -44,7 +44,7 @@ public class MainActivity2 extends AppCompatActivity {
                     return true;
                 }
                 if (itemid == R.id.congdong) {
-                    phanFragment(new DanhMucSPFragment());
+                    phanFragment(new DanhMucFragment());
                     return true;
                 }
                 if (itemid == R.id.chat) {

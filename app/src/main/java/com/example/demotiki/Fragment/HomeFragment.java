@@ -1,6 +1,7 @@
 package com.example.demotiki.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.demotiki.Adapter.SanPhamAdapter;
@@ -22,6 +25,7 @@ import com.example.demotiki.AnotherClass.SanPham;
 import com.example.demotiki.R;
 import com.example.demotiki.Slider.SliderAdapter;
 import com.example.demotiki.Slider.SliderTin;
+import com.example.demotiki.TimKiemSP.TimKiemActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,6 +56,8 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerViewSP;
     private List<SanPham> sanPhamList;
     SanPhamAdapter sanPhamAdapter;
+    EditText search;
+    Button den_search;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +66,17 @@ public class HomeFragment extends Fragment {
         viewPager2 =  view.findViewById(R.id.viewPager);
         circleIndicator3 = view.findViewById(R.id.circle_indicator);
         recyclerViewSP = view.findViewById(R.id.recygoiy);
+        search = view.findViewById(R.id.next_search);
+        den_search = view.findViewById(R.id.btn_timkiem);
+
+        den_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TimKiemActivity.class);
+                intent.putExtra("search_text", search.getText().toString());
+                startActivity(intent);
+            }
+        });
         listTinTuc = getListPhoto();
         SliderAdapter sliderAdapter = new SliderAdapter(HomeFragment.this,listTinTuc);
         viewPager2.setAdapter(sliderAdapter);

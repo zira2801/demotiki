@@ -93,7 +93,11 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
             }
         });
     }
-
+    public void updateData(List<SanPham> newList) {
+        phamList.clear();
+        phamList.addAll(newList);
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
