@@ -1,4 +1,5 @@
 package com.example.demotiki.DangSanPham;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -32,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.demotiki.AnotherClass.DanhMucSP;
 import com.example.demotiki.AnotherClass.SanPham;
 import com.example.demotiki.DangKyNhaBan.DangKyNhaBanActivity;
 import com.example.demotiki.R;
@@ -39,8 +42,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -63,12 +69,13 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
     private static final int Read_Permission = 101;
     private static final int PICK_IMAGE = 1;
     AutoCompleteTextView autoCompleteTextView;
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<DanhMucSP> adapter;
     Button removeall,dang;
     EditText ed_thuonghieu,ed_xuatxu,ed_baohanh,ed_tensp,ed_giasp;
     TextInputEditText ed_motasp;
     RadioGroup rad_baohanh;
     ImageView close;
+    ArrayList<DanhMucSP> categories;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,16 +84,16 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
         totalanh.setVisibility(View.GONE);
         removeall.setVisibility(View.GONE);
         autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.auto_item);
-        adapter = new ArrayAdapter<>(this,R.layout.list_danhmucsp,item);
-        autoCompleteTextView.setAdapter(adapter);
+        loadData();
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            String item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(DangSPActivity.this,"Item: "+item,Toast.LENGTH_SHORT).show();
+                DanhMucSP danhMucSP = (DanhMucSP) adapterView.getItemAtPosition(i);
+                String tenDanhMuc = danhMucSP.getTendanhmuc();
+                autoCompleteTextView.setText(tenDanhMuc);
+                loadData();
             }
         });
-
         if(ContextCompat.checkSelfPermission(DangSPActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(DangSPActivity.this,
@@ -200,7 +207,7 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
         }
         String danhmucsp = autoCompleteTextView.getText().toString();
         String mota = ed_motasp.getText().toString();
-        SanPham sp = new SanPham("",user.getUid(),namesp,danhmucsp,thuonghieu,giaSP,tgbaohanh,xuatxu,check,mota,danhSachAnhSP,"");
+        SanPham sp = new SanPham("",user.getUid(),namesp,danhmucsp,thuonghieu,giaSP,tgbaohanh,xuatxu,mota,check,danhSachAnhSP,"");
         if(!TextUtils.isEmpty(thuonghieu) && !TextUtils.isEmpty(xuatxu) && !TextUtils.isEmpty(tgbaohanh) && !TextUtils.isEmpty(mota) && danhSachAnhSP != null && !check.equals("")){
 
             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
@@ -322,5 +329,79 @@ public class DangSPActivity extends AppCompatActivity implements RecycleAdapter.
                 dialog.dismiss();
             }
         });
+    }
+
+    private ArrayList<DanhMucSP> getlist() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DanhMucSP");
+        categories = new ArrayList<>();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                categories.clear();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    String categoryId = child.getKey();
+                    DataSnapshot tenDanhMucNode = child.child("Tendanhmuc");
+                    String tenDanhMuc = tenDanhMucNode.getValue(String.class);
+                    DanhMucSP category = new DanhMucSP(categoryId, tenDanhMuc);
+                    categories.add(category);
+                }// Gửi dữ liệu qua callback
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Xử lý lỗi đọc dữ liệu nếu cần
+            }
+        });
+
+        return categories;
+    }
+
+    private void loadData() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DanhMucSP");
+        categories = new ArrayList<>();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                categories.clear();
+                for (DataSnapshot child : snapshot.getChildren()) {
+
+                    String categoryId = child.getKey();
+                    DataSnapshot tenDanhMucNode = child.child("Tendanhmuc");
+                    String tenDanhMuc = tenDanhMucNode.getValue(String.class);
+                    DanhMucSP category = new DanhMucSP(categoryId, tenDanhMuc);
+                    categories.add(category);
+                }// Gửi dữ liệu qua callback
+                // Khởi tạo adapter sau khi có data
+                adapter = new ArrayAdapter<DanhMucSP>(DangSPActivity.this, android.R.layout.simple_list_item_1, categories){
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        View view = super.getView(position, convertView, parent);
+
+                        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                        DanhMucSP danhMuc = getItem(position);
+
+                        textView.setText(danhMuc.getTendanhmuc());
+
+                        return view;
+                    }};
+
+                // Gán adapter cho AutoCompleteTextView
+                autoCompleteTextView.setAdapter(adapter);
+                autoCompleteTextView.setDropDownHeight(500);
+                // Thông báo thay đổi dữ liệu cho adapter
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
+
     }
 }

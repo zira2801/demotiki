@@ -26,9 +26,11 @@ import com.example.demotiki.R;
 import com.example.demotiki.ThongTinTaiKhoan.ThongTinTaiKhoanActivity;
 import com.example.demotiki.TrangCaNhan.TrangCaNhanActivity;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,6 +65,7 @@ public class CaNhanFragment extends Fragment {
 
     LinearLayout tttk,trangcn;
     ProgressDialog progressDialog;
+
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //Tra ve user
 
     @SuppressLint("MissingInflatedId")
@@ -106,21 +109,7 @@ public class CaNhanFragment extends Fragment {
         dangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                googleSignInClient.signOut()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                signOutUser();
-                            }
-                        });
-                LoginManager.getInstance().logOut();
-                Intent i = new Intent(getActivity(), MainActivity2.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //FLAG_ACTIVITY_NEW_TASK: Cho phép Activity được mở trong một new task
-                // FLAG_ACTIVITY_CLEAR_TASK: Xóa tất cả các Activity khác trong stack và chỉ giữ lại LoginActivity
-
-                startActivity(i);
-                getActivity().finish();
-                firebaseAuth.signOut();
+                signOutUser();
             }
         });
         showUserInformation();
@@ -128,12 +117,22 @@ public class CaNhanFragment extends Fragment {
     }
 
     private void signOutUser() {
-        Intent i = new Intent(getActivity(), MainActivity2.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        startActivity(i);
-        getActivity().finishAffinity();
+        // Đăng xuất khỏi Firebase
+        FirebaseAuth.getInstance().signOut();
 
+        // Đăng xuất thành công khỏi Google Sign-In
+        googleSignInClient.signOut();
+
+        // Đăng xuất khỏi Facebook Login nếu có
+        LoginManager.getInstance().logOut();
+
+        // Điều hướng đến màn hình đăng nhập
+        Intent intent = new Intent(getActivity(), MainActivity2.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+        getActivity().finish();
     }
     private void showUserInformation(){
 

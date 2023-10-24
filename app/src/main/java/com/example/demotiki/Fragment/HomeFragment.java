@@ -148,7 +148,7 @@ public class HomeFragment extends Fragment {
                 for(DataSnapshot productSnapshot : snapshot.getChildren()){
                     String productId = productSnapshot.getKey();
 
-                    String name = productSnapshot.child("tenSP").getValue(String.class);
+                    String name = productSnapshot.child("tensp").getValue(String.class);
                     String userId = productSnapshot.child("idUser").getValue(String.class);
 
                     String category = productSnapshot.child("danhMucSP").getValue(String.class);

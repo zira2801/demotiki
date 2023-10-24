@@ -53,7 +53,7 @@ public class TimKiemActivity extends AppCompatActivity {
         });
         query = getIntent().getStringExtra("search_text");
         search.setText(query);
-
+        query = search.getText().toString().trim().toLowerCase();
         sanPhamArrayList = new ArrayList<>();
         sanPhamAdapter = new SanPhamAdapter(sanPhamArrayList, TimKiemActivity.this);
 
@@ -90,7 +90,7 @@ public class TimKiemActivity extends AppCompatActivity {
                     // Parse product data here
                     String productId = productSnap.getKey();
 
-                    String name = productSnap.child("tenSP").getValue(String.class);
+                    String name = productSnap.child("tensp").getValue(String.class);
                     String userId = productSnap.child("idUser").getValue(String.class);
 
                     String category = productSnap.child("danhMucSP").getValue(String.class);
