@@ -10,6 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.demotiki.ChiTietSanPham.ChiTietSPActivity;
 import com.example.demotiki.Fragment.HomeFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class DSAnhSPAdapter extends FragmentStateAdapter {
 
         //Xét bundle vào Fragment
         Bundle bundle = new Bundle();
-        bundle.putSerializable("object_slide",sliderItem);
+        bundle.putParcelable("resourceId",sliderItem);
         AnhSPFragment sliderFragment = new AnhSPFragment();
         sliderFragment.setArguments(bundle);
         return sliderFragment;

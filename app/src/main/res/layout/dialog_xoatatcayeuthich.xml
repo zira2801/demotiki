@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_dcemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="4dp"
+            android:text="Bạn có chắc muốn xóa"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#D5D2D2"
+        android:layout_margin="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Xóa tất cả sản phẩm khỏi yêu thích?"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="10dp">
+        <Button
+            android:id="@+id/btn_xoatatcayeuthich_item"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#00adf1"
+            android:text="Có"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_huy_xoa_tatcayeuthichitem"
+            android:transitionName="transition_next_btn"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/btn_huy_xoa_tatcayeuthichitem"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:backgroundTint="#00adf1"
+            android:text="Không"
+            android:textColor="@color/white"
+            android:transitionName="transition_next_btn"
+            app:layout_constraintStart_toEndOf="@id/btn_xoatatcayeuthich_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

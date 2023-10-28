@@ -2,6 +2,7 @@ package com.example.demotiki.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,10 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.demotiki.Adapter.SanPhamAdapter;
+import com.example.demotiki.AnotherClass.Cart;
 import com.example.demotiki.AnotherClass.SanPham;
+import com.example.demotiki.GioHang.GioHangActivity;
 import com.example.demotiki.R;
 import com.example.demotiki.Slider.SliderAdapter;
 import com.example.demotiki.Slider.SliderTin;
@@ -34,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +63,11 @@ public class HomeFragment extends Fragment {
     SanPhamAdapter sanPhamAdapter;
     EditText search;
     Button den_search;
-
+    NotificationBadge notificationBadge;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    ArrayList<Cart> carts;
+    ImageView giohang;
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,7 +77,17 @@ public class HomeFragment extends Fragment {
         recyclerViewSP = view.findViewById(R.id.recygoiy);
         search = view.findViewById(R.id.next_search);
         den_search = view.findViewById(R.id.btn_timkiem);
-
+        notificationBadge = view.findViewById(R.id.notific_home);
+        giohang = view.findViewById(R.id.giohang);
+        giohang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), GioHangActivity.class));
+            }
+        });
+        if(user == null){
+            notificationBadge.setVisibility(View.GONE);
+        }
         den_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +133,7 @@ public class HomeFragment extends Fragment {
         sanPhamAdapter = new SanPhamAdapter(sanPhamList,getContext());
         recyclerViewSP.setAdapter(sanPhamAdapter);
         recyclerViewSP.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        getListGH();
         return view;
     }
 
@@ -185,5 +205,39 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
+
+    private void getListGH(){
+        if(user == null){
+            return;
+        }
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("GioHang").child("gio_hang_"+user.getUid());
+        carts = new ArrayList<>();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                carts.clear();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    String spgh = child.child("id_sp").getValue(String.class);
+                    String idnguoidung = child.child("id_nguoidung").getValue(String.class);
+                    String tenSP = child.child("tenSP").getValue(String.class);
+                    Long giaSPLong = child.child("giasp").getValue(Long.class);
+                    String giaSPString = String.valueOf(giaSPLong);
+                    Double giaSP = Double.parseDouble(giaSPString);
+                    String anhsanpham = child.child("anhSP").getValue(String.class);
+                    int soluong = child.child("soluong").getValue(Integer.class);
+                    Cart cart = new Cart(spgh, idnguoidung,tenSP ,giaSP,anhsanpham,soluong);
+                    carts.add(cart);
+                }
+                notificationBadge.setVisibility(View.VISIBLE);
+                notificationBadge.setNumber(carts.size());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

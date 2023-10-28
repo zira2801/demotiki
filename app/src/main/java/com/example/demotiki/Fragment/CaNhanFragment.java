@@ -14,17 +14,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.demotiki.AnotherClass.Cart;
+import com.example.demotiki.GioHang.GioHangActivity;
 import com.example.demotiki.Login_Register.LoginActivity;
 import com.example.demotiki.MainActivity;
 import com.example.demotiki.MainActivity2;
 import com.example.demotiki.R;
 import com.example.demotiki.ThongTinTaiKhoan.ThongTinTaiKhoanActivity;
 import com.example.demotiki.TrangCaNhan.TrangCaNhanActivity;
+import com.example.demotiki.YeuThich.YeuThichActivity;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -40,6 +44,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.nex3z.notificationbadge.NotificationBadge;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -67,6 +74,10 @@ public class CaNhanFragment extends Fragment {
     ProgressDialog progressDialog;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //Tra ve user
+    LinearLayout trangyeuth;
+    ArrayList<Cart> carts;
+    NotificationBadge notificationBadge;
+    ImageView cart;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -80,7 +91,22 @@ public class CaNhanFragment extends Fragment {
         login = view.findViewById(R.id.tv_dangnhapdangki);
         tttk = view.findViewById(R.id.thongtintk);
         trangcn = view.findViewById(R.id.trangcanhan);
-
+        trangyeuth = view.findViewById(R.id.trangyeuthich);
+        notificationBadge = view.findViewById(R.id.notifi_taikhoan);
+        cart = view.findViewById(R.id.cart_taikhoan);
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), GioHangActivity.class));
+            }
+        });
+        getListGH();
+        trangyeuth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), YeuThichActivity.class));
+            }
+        });
         trangcn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,5 +197,39 @@ public class CaNhanFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void getListGH(){
+        if(user == null){
+            return;
+        }
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("GioHang").child("gio_hang_"+user.getUid());
+        carts = new ArrayList<>();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                carts.clear();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    String spgh = child.child("id_sp").getValue(String.class);
+                    String idnguoidung = child.child("id_nguoidung").getValue(String.class);
+                    String tenSP = child.child("tenSP").getValue(String.class);
+                    Long giaSPLong = child.child("giasp").getValue(Long.class);
+                    String giaSPString = String.valueOf(giaSPLong);
+                    Double giaSP = Double.parseDouble(giaSPString);
+                    String anhsanpham = child.child("anhSP").getValue(String.class);
+                    int soluong = child.child("soluong").getValue(Integer.class);
+                    Cart cart = new Cart(spgh, idnguoidung,tenSP ,giaSP,anhsanpham,soluong);
+                    carts.add(cart);
+                }
+                notificationBadge.setVisibility(View.VISIBLE);
+                notificationBadge.setNumber(carts.size());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

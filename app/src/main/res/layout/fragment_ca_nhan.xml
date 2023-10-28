@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="33dp"
+                    android:layout_marginTop="25dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView"
@@ -54,13 +54,31 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/baseline_settings_24" />
+                        android:src="@drawable/baseline_settings_24"
+                        android:layout_marginTop="10dp"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="55dp"
+                        android:gravity="center">
+                        <ImageView
+                            android:id="@+id/cart_taikhoan"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/baseline_shopping_cart_24_2" />
+                        <com.nex3z.notificationbadge.NotificationBadge
+                            android:id="@+id/notifi_taikhoan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginLeft="45dp"
+                            android:layout_marginTop="-15dp"/>
+                    </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="30dp"
-                        android:src="@drawable/baseline_shopping_cart_24_2" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -365,6 +383,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/trangyeuthich"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"

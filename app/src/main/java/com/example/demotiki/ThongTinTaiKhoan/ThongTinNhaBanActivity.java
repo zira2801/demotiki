@@ -6,14 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.demotiki.AnotherClass.DanhMucSP;
+import com.example.demotiki.DangSanPham.DangSPActivity;
 import com.example.demotiki.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,22 +33,35 @@ import com.google.firebase.storage.StorageReference;
 import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ThongTinNhaBanActivity extends AppCompatActivity {
     String[] item = {"Điện thoại","Laptop","Đồ chơi"};
-    ArrayAdapter adapter;
+    ArrayAdapter<DanhMucSP> adapter;
     ImageView trolai;
     EditText edt_hoten, edt_sdt, edt_emainb;
     CountryCodePicker countryCodePicker;
     TextInputEditText diachinb;
     AutoCompleteTextView tennganhhang;
     Button capnhat;
+    ArrayList<DanhMucSP> categories;
+    AutoCompleteTextView autoCompleteTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_nha_ban);
         UIinit();
+        loadData();
+        tennganhhang.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DanhMucSP danhMucSP = (DanhMucSP) adapterView.getItemAtPosition(i);
+                String tenDanhMuc = danhMucSP.getTendanhmuc();
+                tennganhhang.setText(tenDanhMuc);
+                loadData();
+            }
+        });
         trolai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +76,8 @@ public class ThongTinNhaBanActivity extends AppCompatActivity {
                 UpdateProfile();
             }
         });
+
+
     }
 
     private void UIinit() {
@@ -98,8 +118,8 @@ public class ThongTinNhaBanActivity extends AppCompatActivity {
                 edt_sdt.setText(SoDT);
                 diachinb.setText(Diachi);
                 tennganhhang.setText(nganhhang);
+                loadData();
                 countryCodePicker.setCountryForNameCode(quocgia);
-                adapter = new ArrayAdapter<>(ThongTinNhaBanActivity.this,R.layout.list_danhmucsp,item);
                 tennganhhang.setAdapter(adapter);
             }
 
@@ -132,5 +152,53 @@ public class ThongTinNhaBanActivity extends AppCompatActivity {
         usersRef.child("DiaChiNhaban").setValue(Diachi);
         usersRef.child("quocGia").setValue(quocgia);
         Toast.makeText(ThongTinNhaBanActivity.this, "Cập nhật Nhà bán thành công", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadData() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DanhMucSP");
+        categories = new ArrayList<>();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                categories.clear();
+                for (DataSnapshot child : snapshot.getChildren()) {
+
+                    String categoryId = child.getKey();
+                    DataSnapshot tenDanhMucNode = child.child("Tendanhmuc");
+                    String tenDanhMuc = tenDanhMucNode.getValue(String.class);
+                    DanhMucSP category = new DanhMucSP(categoryId, tenDanhMuc);
+                    categories.add(category);
+                }// Gửi dữ liệu qua callback
+                // Khởi tạo adapter sau khi có data
+                adapter = new ArrayAdapter<DanhMucSP>(ThongTinNhaBanActivity.this, android.R.layout.simple_list_item_1, categories){
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        View view = super.getView(position, convertView, parent);
+
+                        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                        DanhMucSP danhMuc = getItem(position);
+
+                        textView.setText(danhMuc.getTendanhmuc());
+
+                        return view;
+                    }};
+
+                // Gán adapter cho AutoCompleteTextView
+                tennganhhang.setAdapter(adapter);
+                tennganhhang.setDropDownHeight(500);
+                // Thông báo thay đổi dữ liệu cho adapter
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
+
     }
 }

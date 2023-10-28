@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -16,12 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.demotiki.AnotherClass.Cart;
+import com.example.demotiki.AnotherClass.SanPham;
 import com.example.demotiki.AnotherClass.YeuThich;
 import com.example.demotiki.DangSanPham.DangSPActivity;
 import com.example.demotiki.DanhsachAnhSP.AnhSP;
 import com.example.demotiki.DanhsachAnhSP.AnhSPFragment;
 import com.example.demotiki.DanhsachAnhSP.DSAnhSPAdapter;
 import com.example.demotiki.Fragment.HomeFragment;
+import com.example.demotiki.GioHang.GioHangActivity;
 import com.example.demotiki.R;
 import com.example.demotiki.Slider.SliderAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,7 +36,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -46,7 +53,8 @@ public class ChiTietSPActivity extends AppCompatActivity {
     ImageView close,next_tk;
     TextView tv_tensp,gia,diemdanhgia,tendm,xuatxu,thuonghieu,baohanh,thoigianbaohanh,tennguoiban,motasp;
     RatingBar ratingBar;
-    LinearLayout themgiohang,muangay;
+    LinearLayout muangay;
+    Button themgiohang;
     CircleImageView avatar;
 
     ArrayList<AnhSP> dsAnnhSP;
@@ -57,27 +65,39 @@ public class ChiTietSPActivity extends AppCompatActivity {
     String moTasp;
     String xuatxusp,thuongHieu,danhgiasp,baohanhsp,tgbaohanh,idsp,iduser;
     ImageView fav;
-
+    NotificationBadge notificationBadge;
+    ProgressDialog progressDialog;
 
     DatabaseReference databaseYeuThich = FirebaseDatabase.getInstance().getReference("YeuThich");
 
+    DatabaseReference databaseGioHang = FirebaseDatabase.getInstance().getReference("GioHang");
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    ArrayList<Cart> carts;
+    ImageView cart;
+    String[] anhsp ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_spactivity);
         Unit();
 
+        if(user == null){
+            notificationBadge.setVisibility(View.GONE);
+        }
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+
         //Đặt tên các trường
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
         NumberFormat formatter = NumberFormat.getNumberInstance();
         formatter.setGroupingUsed(true);
-        String[] anhsp = getIntent().getStringArrayExtra("arrayAnh");
+        anhsp = getIntent().getStringArrayExtra("arrayAnh");
         dsAnnhSP = new ArrayList<>();
         if(anhsp != null) {
             for (String anh : anhsp) {
@@ -183,13 +203,54 @@ public class ChiTietSPActivity extends AppCompatActivity {
 
                 }
             });
+
+            cart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(ChiTietSPActivity.this, GioHangActivity.class));
+                }
+            });
         }
+
+        //Sự kiện thêm giỏ hàng
+        themgiohang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.show();
+                String anhdau = anhsp[0];
+                Cart cart = new Cart(idsp,user.getUid(),tensp,giasp,anhdau,1);
+                databaseGioHang.child("gio_hang_"+user.getUid()).child("gio_hang_"+idsp).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            String idSP = (String) snapshot.child("id_sp").getValue();
+                            if (idSP.equals(idSP)) {
+                                progressDialog.dismiss();
+                                Toast.makeText(ChiTietSPActivity.this,"Sản phẩm đã có trong giỏ hàng",Toast.LENGTH_SHORT).show();
+
+                            }
+                        } else {
+                            progressDialog.dismiss();
+                            Toast.makeText(ChiTietSPActivity.this,"Thêm sản phẩm vào giỏ hàng thành công",Toast.LENGTH_SHORT).show();
+                            databaseGioHang.child("gio_hang_"+user.getUid()).child("gio_hang_"+idsp).setValue(cart);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+        getListGH();
     }
 
     //Thêm yêu thích
     private void ThemYeuthich(){
         idsp = getIntent().getStringExtra("idsp");
-        YeuThich yeuThich = new YeuThich(idsp,user.getUid());
+        String anhdau = anhsp[0];
+        YeuThich yeuThich = new YeuThich(idsp,user.getUid(),tensp,giasp,anhdau);
        databaseYeuThich.child("yeu_thich_"+user.getUid()).child("yeu_thich_"+idsp).addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -217,6 +278,39 @@ public class ChiTietSPActivity extends AppCompatActivity {
        });
 
     }
+
+    private void getListGH(){
+        if(user == null){
+            return;
+        }
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("GioHang").child("gio_hang_"+user.getUid());
+        carts = new ArrayList<>();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                carts.clear();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    String spgh = child.child("id_sp").getValue(String.class);
+                    String idnguoidung = child.child("id_nguoidung").getValue(String.class);
+                    String tenSP = child.child("tenSP").getValue(String.class);
+                    Double giaSP = child.child("giasp").getValue(Double.class);
+                    String anhsanpham = child.child("anhSP").getValue(String.class);
+                    int soluong = child.child("soluong").getValue(Integer.class);
+                    Cart cart = new Cart(spgh, idnguoidung, tenSP,giaSP,anhsanpham,soluong);
+                    carts.add(cart);
+                }
+                notificationBadge.setVisibility(View.VISIBLE);
+                notificationBadge.setNumber(carts.size());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
     private void Unit(){
         viewPager2_DSANH = (ViewPager2) findViewById(R.id.viewpager_anhsp);
         close = (ImageView) findViewById(R.id.back_chitiet_sp);
@@ -224,7 +318,7 @@ public class ChiTietSPActivity extends AppCompatActivity {
         gia = (TextView) findViewById(R.id.Dt_gia);
         diemdanhgia = (TextView) findViewById(R.id.diemDanhGia);
         ratingBar = (RatingBar) findViewById(R.id.ratingBarProduct);
-        themgiohang = (LinearLayout) findViewById(R.id.Detail_themgiohang);
+        themgiohang = (Button) findViewById(R.id.btn_ThemGioHang);
         muangay = (LinearLayout) findViewById(R.id.Detail_muangay);
         tendm = (TextView) findViewById(R.id.Dt_DMSP);
         xuatxu = (TextView) findViewById(R.id.Dt_XS);
@@ -236,6 +330,8 @@ public class ChiTietSPActivity extends AppCompatActivity {
         next_tk = (ImageView) findViewById(R.id.next_account);
         motasp = (TextView) findViewById(R.id.Dt_mota);
         fav = (ImageView) findViewById(R.id.fav_sp);
+        notificationBadge = (NotificationBadge) findViewById(R.id.notific);
+        cart = (ImageView) findViewById(R.id.img_cart);
     }
 
 

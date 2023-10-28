@@ -24,7 +24,7 @@ public class AnhSPFragment extends Fragment {
         mView = inflater.inflate(R.layout.img_danhsach_anh_sp,container,false);
 
         Bundle bundle = getArguments();
-        AnhSP sliderItem = (AnhSP) bundle.get("object_slide");
+        AnhSP sliderItem = bundle.getParcelable("resourceId");
         Uri imageUri = sliderItem.getResourceId();
        ImageView imageSlide = (ImageView) mView.findViewById(R.id.img_anhsp_danhsach);
         Glide.with(this)

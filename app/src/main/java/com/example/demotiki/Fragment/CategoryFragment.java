@@ -69,7 +69,7 @@ public class CategoryFragment extends Fragment {
                         for (DataSnapshot productSnap : dataSnapshot.getChildren()){
                             String productId = productSnap.getKey();
 
-                            String name = productSnap.child("tenSP").getValue(String.class);
+                            String name = productSnap.child("tensp").getValue(String.class);
                             String userId = productSnap.child("idUser").getValue(String.class);
 
                             String category = productSnap.child("danhMucSP").getValue(String.class);

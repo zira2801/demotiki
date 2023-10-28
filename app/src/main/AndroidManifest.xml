@@ -31,6 +31,12 @@
         android:theme="@style/Theme.Demotiki"
         tools:targetApi="31">
         <activity
+            android:name=".YeuThich.YeuThichActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GioHang.GioHangActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChiTietSanPham.ChiTietSPActivity"
             android:exported="false" />
         <activity
