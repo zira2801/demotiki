@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageSPdathang"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="5dp"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/imageSPdathang"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tensp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm: "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_tenspdathang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên "
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@+id/imageSPdathang"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+            <TextView
+                android:id="@+id/giasp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá sản phẩm: "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_giaspdathang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá"
+                android:textSize="15dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/imageSPdathang"
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout4">
+
+            <TextView
+                android:id="@+id/editTextNumberDecimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:paddingLeft="10dp"
+                android:text="Số lượng mua: "
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+                <TextView
+                    android:id="@+id/tv_soluong_dathang"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_gravity="center"
+                    android:paddingTop="11dp"
+                    android:text="0"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearlayout5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@+id/imageSPdathang"
+            app:layout_constraintTop_toBottomOf="@+id/linear6">
+
+            <TextView
+                android:id="@+id/giasp1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhà bán: "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_launcher_background"
+        android:id="@+id/avatar_nhaban_dathang"/>
+    <TextView
+        android:id="@+id/tennhaban_dathang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giá"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"/>
+</LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

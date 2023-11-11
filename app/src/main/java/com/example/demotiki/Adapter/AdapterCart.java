@@ -49,6 +49,9 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.CartViewHolder
         this.context = context;
     }
 
+    public List<Cart> getGioHangList() {
+        return  cartList;
+    }
     @NonNull
     @Override
     public AdapterCart.CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

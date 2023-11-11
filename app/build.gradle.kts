@@ -62,4 +62,6 @@ dependencies {
     implementation ("com.makeramen:roundedimageview:2.3.0")
 
     implementation ("com.nex3z:notification-badge:1.0.4")
+
+    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
 }

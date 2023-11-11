@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.demotiki.AnotherClass.Cart;
+import com.example.demotiki.DanhSachDonHang.DanhSachDonHangActivity;
 import com.example.demotiki.GioHang.GioHangActivity;
 import com.example.demotiki.Login_Register.LoginActivity;
 import com.example.demotiki.MainActivity;
@@ -78,6 +79,7 @@ public class CaNhanFragment extends Fragment {
     ArrayList<Cart> carts;
     NotificationBadge notificationBadge;
     ImageView cart;
+    RelativeLayout dentrangdonhang;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -94,6 +96,13 @@ public class CaNhanFragment extends Fragment {
         trangyeuth = view.findViewById(R.id.trangyeuthich);
         notificationBadge = view.findViewById(R.id.notifi_taikhoan);
         cart = view.findViewById(R.id.cart_taikhoan);
+        dentrangdonhang = view.findViewById(R.id.dentrangdanhsachdonhang);
+        dentrangdonhang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), DanhSachDonHangActivity.class));
+            }
+        });
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

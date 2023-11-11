@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center">
+    <pl.droidsonroids.gif.GifImageView
+    android:layout_width="wrap_content"
+    android:layout_height="200dp"
+    android:src="@drawable/thanhcong"
+    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Thanh toán thành công"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        />
+    <Button
+        android:id="@+id/btn_toitrangbill"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="80dp"
+        android:drawableEnd="@drawable/baseline_navigate_next_24_2"
+        android:paddingLeft="50dp"
+        android:text="Tới trang hóa đơn"
+        android:backgroundTint="#00adf1"/>
+</LinearLayout>

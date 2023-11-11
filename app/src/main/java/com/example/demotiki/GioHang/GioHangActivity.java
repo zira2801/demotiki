@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,7 +21,9 @@ import android.widget.Toast;
 
 import com.example.demotiki.Adapter.AdapterCart;
 import com.example.demotiki.AnotherClass.Cart;
+import com.example.demotiki.Login_Register.LoginActivity;
 import com.example.demotiki.R;
+import com.example.demotiki.ThanhToan.ThanhTOanActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,8 +32,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GioHangActivity extends AppCompatActivity {
     RecyclerView recyclerViewGioHang;
@@ -38,6 +46,8 @@ public class GioHangActivity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     TextView tongtien;
     ImageView xoatatca,back;
+    Button thanhtoan;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +56,19 @@ public class GioHangActivity extends AppCompatActivity {
         tongtien = findViewById(R.id.tongtien_tv);
         xoatatca = findViewById(R.id.xoatatca_cart);
         back = findViewById(R.id.back_giohang);
+        thanhtoan = findViewById(R.id.btn_thanhtoan);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        getListGioHang();
+        if(user == null){
+            return;
+        }
+        else{
+            getListGioHang();
+        }
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewGioHang.setLayoutManager(layoutManager);
         recyclerViewGioHang.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
@@ -86,6 +102,32 @@ public class GioHangActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+            }
+        });
+
+        //Sự kiện thanh toán
+        thanhtoan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Cart> list = adapterCart.getGioHangList();
+                String tonggia = tongtien.getText().toString();
+                Pattern p = Pattern.compile("\\d{1,3}(,\\d{3})*");  //\d{1,3}: 1 đến 3 chữ số
+                                                                            //(,\d{3})*: dấu phẩy, tiếp theo 3 chữ số, lặp lại 0 hoặc nhiều lần
+                // Tìm kiếm pattern trong chuỗi
+                Matcher m = p.matcher(tonggia);
+                Double gia = 0.0;
+                if(m.find()) {
+                    String so = m.group().replace(",", "");
+                    gia = Double.parseDouble(so);
+                }
+                if(user == null){
+                    startActivity(new Intent(GioHangActivity.this, LoginActivity.class));
+                }
+                else{
+                    Intent intent = new Intent(GioHangActivity.this, ThanhTOanActivity.class);
+                    intent.putExtra("totalPrice", gia);
+                    startActivity(intent);
+                }
             }
         });
     }

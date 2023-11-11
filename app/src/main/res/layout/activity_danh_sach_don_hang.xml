@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DanhSachDonHang.DanhSachDonHangActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Danh sách đơn hàng"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_margin="15dp"
+        android:textSize="20dp"/>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_danhsachdonhang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabTextColor="#757272"
+        app:tabIndicatorColor="#00adf1"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="#00adf1"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_danhsachdonhang"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</LinearLayout>
