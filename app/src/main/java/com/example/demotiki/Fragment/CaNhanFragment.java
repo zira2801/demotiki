@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.demotiki.AnotherClass.Cart;
@@ -100,6 +101,9 @@ public class CaNhanFragment extends Fragment {
         dentrangdonhang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(user == null){
+                    Toast.makeText(getApplicationContext(),"Bạn phải đăng nhập để xem đơn hàng",Toast.LENGTH_SHORT).show();
+                }
                 startActivity(new Intent(getActivity(), DanhSachDonHangActivity.class));
             }
         });

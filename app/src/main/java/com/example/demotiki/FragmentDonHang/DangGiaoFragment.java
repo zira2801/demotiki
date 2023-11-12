@@ -1,66 +1,116 @@
 package com.example.demotiki.FragmentDonHang;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.demotiki.Adapter.DonHangTrongListAdapter;
+import com.example.demotiki.AnotherClass.DonHang;
+import com.example.demotiki.AnotherClass.SanPhamDonHang;
 import com.example.demotiki.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DangGiaoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class DangGiaoFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public DangGiaoFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DangGiaoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DangGiaoFragment newInstance(String param1, String param2) {
-        DangGiaoFragment fragment = new DangGiaoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
+    }
+    RecyclerView recyclerView;
+    DonHangTrongListAdapter donhangAdapter;
+    ArrayList<DonHang> donHangArrayList;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dang_giao, container, false);
+        View view= inflater.inflate(R.layout.fragment_dang_giao, container, false);
+        recyclerView = view.findViewById(R.id.recycle_donhongdanggiao);
+        String trangthaiName = "Đang giao";
+        getList(trangthaiName);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        donhangAdapter = new DonHangTrongListAdapter(donHangArrayList,getContext());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        recyclerView.setAdapter(donhangAdapter);
+        return view;
+    }
+    private void getList(String trangthai){
+        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("DonHang");
+        donHangArrayList = new ArrayList<>();
+        productsRef.orderByChild("trangthaidonhang").equalTo(trangthai)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot productSnap : dataSnapshot.getChildren()){
+                            String donhangId = productSnap.child("id_donhang").getValue(String.class);
+
+                            String tennguoimua = productSnap.child("tennguoimua").getValue(String.class);
+                            String userId = productSnap.child("id_nguoimua").getValue(String.class);
+
+                            String sodienthoai = productSnap.child("sodienthoainguoimua").getValue(String.class);
+
+                            String phuongthucthanhtoan = productSnap.child("ptthanhToan").getValue(String.class);
+
+                            String ngaydathang = productSnap.child("ngaydathang").getValue(String.class);
+
+                            String trangthaidonhang = productSnap.child("trangthaidonhang").getValue(String.class);
+
+                            double giatong = productSnap.child("giaTongCong").getValue(Double.class);
+
+                            String diachigiaohang = productSnap.child("diachigiaohang").getValue(String.class);
+
+                            Map<String, SanPhamDonHang> sanPhamMap = new HashMap<>();
+
+                            for(DataSnapshot spSnapshot : productSnap.child("id_sanpham").getChildren()) {
+                                String id = spSnapshot.child("id").getValue(String.class);
+                                int quanty = spSnapshot.child("quantity").getValue(Integer.class);
+                                SanPhamDonHang sanPham = new SanPhamDonHang();
+                                sanPham.setId(id);
+                                sanPham.setQuantity(quanty);
+                                sanPhamMap.put("SP"+id, sanPham);
+                            }
+
+                            DonHang donHang = new DonHang(donhangId,userId,sanPhamMap,diachigiaohang,tennguoimua,sodienthoai,phuongthucthanhtoan,giatong,trangthaidonhang,ngaydathang);
+                            donHangArrayList.add(donHang);
+                        }
+
+                        donhangAdapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Lỗi
+                    }
+                });
     }
 }

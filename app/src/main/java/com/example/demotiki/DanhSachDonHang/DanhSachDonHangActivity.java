@@ -5,6 +5,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.demotiki.Adapter.DanhSachDonHangAdapter;
 import com.example.demotiki.FragmentCaNhan.ViewPagerAdapter;
@@ -17,6 +19,7 @@ public class DanhSachDonHangActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     DanhSachDonHangAdapter donHangAdapter;
+    ImageView back;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,13 @@ public class DanhSachDonHangActivity extends AppCompatActivity {
         setContentView(R.layout.activity_danh_sach_don_hang);
         tabLayout = findViewById(R.id.tab_layout_danhsachdonhang);
         viewPager2 = findViewById(R.id.view_pager_danhsachdonhang);
-
+        back = findViewById(R.id.thoat_danhsachdonhang);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         donHangAdapter = new DanhSachDonHangAdapter(this);
         viewPager2.setAdapter(donHangAdapter);
         new TabLayoutMediator(tabLayout,viewPager2, (tab, position) -> {

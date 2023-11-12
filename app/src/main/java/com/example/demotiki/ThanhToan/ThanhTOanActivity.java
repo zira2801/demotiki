@@ -164,7 +164,7 @@ public class ThanhTOanActivity extends AppCompatActivity {
                         sodienthoainguoimua.setText(sdtnm);
                         diachinm.setText(dc);
                         Date currentDate = new Date();
-                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss, dd/MM/yyyy");
                         String formattedDate = formatter.format(currentDate);
                         hinhthucTT.setText(hinhthuocthantoan.getText().toString());
                         ngaydat.setText(formattedDate);

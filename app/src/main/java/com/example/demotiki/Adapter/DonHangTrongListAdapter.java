@@ -2,6 +2,7 @@ package com.example.demotiki.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.demotiki.AnotherClass.Cart;
 import com.example.demotiki.AnotherClass.DonHang;
 import com.example.demotiki.AnotherClass.SanPhamDonHang;
 import com.example.demotiki.R;
+import com.example.demotiki.ThongTinDonHang.ThongTinDonHangActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -96,6 +98,23 @@ public class DonHangTrongListAdapter extends RecyclerView.Adapter<DonHangTrongLi
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        holder.xemchitiet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, ThongTinDonHangActivity.class);
+                i.putExtra("id_donhang",donHang.getId_donhang());
+                i.putExtra("id_nguoimua",donHang.getId_nguoimua());
+                i.putExtra("diachigiao",donHang.getDiachigiaohang());
+                i.putExtra("tennguoimua",donHang.getTennguoimua());
+                i.putExtra("sodienthoai",donHang.getSodienthoainguoimua());
+                i.putExtra("ptthanhtoan",donHang.getPTThanhToan());
+                i.putExtra("trangthaidh",donHang.getTrangthaidonhang());
+                i.putExtra("ngaydathang",donHang.getNgaydathang());
+                i.putExtra("tonggiatien",donHang.getGiaTongCong());
+                context.startActivity(i);
             }
         });
     }
