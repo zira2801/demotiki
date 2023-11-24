@@ -50,7 +50,8 @@ public class DonHangTrongListAdapter extends RecyclerView.Adapter<DonHangTrongLi
         DonHang donHang = donHangList.get(position);
         holder.tensp.setText(donHang.getId_donhang());
         DatabaseReference donhangRef = FirebaseDatabase.getInstance().getReference("DonHang");
-        donhangRef.orderByChild("id_nguoimua").equalTo(donHang.getId_nguoimua()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+        donhangRef.orderByChild("id_donhang").equalTo(donHang.getId_donhang()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> idList = new ArrayList<>();

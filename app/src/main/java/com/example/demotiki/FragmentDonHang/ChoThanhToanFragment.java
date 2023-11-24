@@ -71,38 +71,39 @@ public class ChoThanhToanFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot productSnap : dataSnapshot.getChildren()){
-                            String donhangId = productSnap.child("id_donhang").getValue(String.class);
+                            if(productSnap.child("id_nguoimua").getValue().equals(user.getUid())){
+                                String donhangId = productSnap.child("id_donhang").getValue(String.class);
 
-                            String tennguoimua = productSnap.child("tennguoimua").getValue(String.class);
-                            String userId = productSnap.child("id_nguoimua").getValue(String.class);
+                                String tennguoimua = productSnap.child("tennguoimua").getValue(String.class);
+                                String userId = productSnap.child("id_nguoimua").getValue(String.class);
 
-                            String sodienthoai = productSnap.child("sodienthoainguoimua").getValue(String.class);
+                                String sodienthoai = productSnap.child("sodienthoainguoimua").getValue(String.class);
 
-                            String phuongthucthanhtoan = productSnap.child("ptthanhToan").getValue(String.class);
+                                String phuongthucthanhtoan = productSnap.child("ptthanhToan").getValue(String.class);
 
-                            String ngaydathang = productSnap.child("ngaydathang").getValue(String.class);
+                                String ngaydathang = productSnap.child("ngaydathang").getValue(String.class);
 
-                            String trangthaidonhang = productSnap.child("trangthaidonhang").getValue(String.class);
+                                String trangthaidonhang = productSnap.child("trangthaidonhang").getValue(String.class);
 
-                            double giatong = productSnap.child("giaTongCong").getValue(Double.class);
+                                double giatong = productSnap.child("giaTongCong").getValue(Double.class);
 
-                            String diachigiaohang = productSnap.child("diachigiaohang").getValue(String.class);
+                                String diachigiaohang = productSnap.child("diachigiaohang").getValue(String.class);
 
-                            Map<String, SanPhamDonHang> sanPhamMap = new HashMap<>();
+                                Map<String, SanPhamDonHang> sanPhamMap = new HashMap<>();
 
-                            for(DataSnapshot spSnapshot : productSnap.child("id_sanpham").getChildren()) {
-                                String id = spSnapshot.child("id").getValue(String.class);
-                                int quanty = spSnapshot.child("quantity").getValue(Integer.class);
-                                SanPhamDonHang sanPham = new SanPhamDonHang();
-                                sanPham.setId(id);
-                                sanPham.setQuantity(quanty);
-                                sanPhamMap.put("SP"+id, sanPham);
+                                for(DataSnapshot spSnapshot : productSnap.child("id_sanpham").getChildren()) {
+                                    String id = spSnapshot.child("id").getValue(String.class);
+                                    int quanty = spSnapshot.child("quantity").getValue(Integer.class);
+                                    SanPhamDonHang sanPham = new SanPhamDonHang();
+                                    sanPham.setId(id);
+                                    sanPham.setQuantity(quanty);
+                                    sanPhamMap.put("SP"+id, sanPham);
+                                }
+
+                                DonHang donHang = new DonHang(donhangId,userId,sanPhamMap,diachigiaohang,tennguoimua,sodienthoai,phuongthucthanhtoan,giatong,trangthaidonhang,ngaydathang);
+                                donHangArrayList.add(donHang);
                             }
-
-                            DonHang donHang = new DonHang(donhangId,userId,sanPhamMap,diachigiaohang,tennguoimua,sodienthoai,phuongthucthanhtoan,giatong,trangthaidonhang,ngaydathang);
-                            donHangArrayList.add(donHang);
                         }
-
                         donhangAdapter.notifyDataSetChanged();
 
                     }
